@@ -30,7 +30,7 @@ class NotificationsFragment : Fragment() {
 
 
         val routineNotification = RoutineNotification(context)
-        routineNotification.notifyUser()
+        routineNotification.notifyUser("In progress")
 
         return root
     }

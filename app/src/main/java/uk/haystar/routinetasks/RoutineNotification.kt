@@ -2,7 +2,9 @@ package uk.haystar.routinetasks
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -17,16 +19,24 @@ class RoutineNotification(private var context: Context?) {
     private val ROUTINE_CHANNEL_ID = "ROUTINE_CHANNEL_ID"
     private val NOTIFICATION_ID = 1
 
-    fun notifyUser() {
+    fun notifyUser(status : String) {
         if (!isChannelCreated && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannel()
         }
 
+        val pauseIntent = Intent(context, RoutinePauseReceiver::class.java)
+        val pauser = PendingIntent.getBroadcast(context, 1, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val completeIntent = Intent(context, RoutineCompleteReceiver::class.java)
+        val completer = PendingIntent.getBroadcast(context, 1, completeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
         val mBuilder = NotificationCompat.Builder(context!!, ROUTINE_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notifications_black_24dp)
             .setContentTitle("Current Routine")
-            .setContentText("Routine blah blah " + System.currentTimeMillis())
+            .setContentText("Routine : $status : " + System.currentTimeMillis())
             .setOngoing(true)
+            .addAction(1, "Pause", pauser)
+            .addAction(2, "Complete", completer)
         val notification = mBuilder.build()
         val notificationManager = NotificationManagerCompat.from(context!!)
         notificationManager.notify(NOTIFICATION_ID, notification)

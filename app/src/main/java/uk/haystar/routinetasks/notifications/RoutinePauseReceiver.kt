@@ -6,8 +6,7 @@ import android.content.Intent
 
 class RoutinePauseReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        val routineNotification =
-            RoutineNotification(context)
+        val routineNotification = RoutineNotification(context)
         routineNotification.notifyUser("Paused")
     }
 }

@@ -18,6 +18,11 @@ class RoutineNotification(private var context: Context?) {
     private lateinit var channel : NotificationChannel
     private var isChannelCreated = false
     private val ROUTINE_CHANNEL_ID = "ROUTINE_CHANNEL_ID"
+
+    /**
+     * By always publishing to this notification ID, we only ever create one notification. A
+     * secondary notification should be created with a separate ID.
+     */
     private val NOTIFICATION_ID = 1
 
     fun notifyUser(status : String) {
@@ -31,6 +36,9 @@ class RoutineNotification(private var context: Context?) {
         val completeIntent = Intent(context, RoutineCompleteReceiver::class.java)
         val completer = PendingIntent.getBroadcast(context, 1, completeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
+        val stopIntent = Intent(context, RoutineStopReceiver::class.java)
+        val stopper = PendingIntent.getBroadcast(context, 1, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
         val mBuilder = NotificationCompat.Builder(context!!, ROUTINE_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notifications_black_24dp)
             .setContentTitle("Current Routine")
@@ -38,9 +46,14 @@ class RoutineNotification(private var context: Context?) {
             .setOngoing(true)
             .addAction(1, "Pause", pauser)
             .addAction(2, "Complete", completer)
+            .addAction(3, "Stop", stopper)
         val notification = mBuilder.build()
         val notificationManager = NotificationManagerCompat.from(context!!)
         notificationManager.notify(NOTIFICATION_ID, notification)
+    }
+
+    fun removeNotification() {
+        NotificationManagerCompat.from(context!!).cancel(NOTIFICATION_ID)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

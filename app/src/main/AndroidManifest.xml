@@ -20,6 +20,7 @@
         </activity>
         <receiver android:name=".notifications.RoutinePauseReceiver" />
         <receiver android:name=".notifications.RoutineCompleteReceiver" />
+        <receiver android:name=".notifications.RoutineStopReceiver" />
     </application>
 
 </manifest>

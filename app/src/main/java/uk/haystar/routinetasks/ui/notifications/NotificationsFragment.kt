@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import uk.haystar.routinetasks.R
+import uk.haystar.routinetasks.RoutineNotification
 
 class NotificationsFragment : Fragment() {
 
@@ -26,6 +27,11 @@ class NotificationsFragment : Fragment() {
         notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+
+
+        val routineNotification = RoutineNotification(context)
+        routineNotification.notifyUser()
+
         return root
     }
 }

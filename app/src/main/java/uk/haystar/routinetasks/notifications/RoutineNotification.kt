@@ -1,4 +1,4 @@
-package uk.haystar.routinetasks
+package uk.haystar.routinetasks.notifications
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat.getSystemService
+import uk.haystar.routinetasks.R
 
 class RoutineNotification(private var context: Context?) {
 

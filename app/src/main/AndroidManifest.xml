@@ -18,8 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".RoutinePauseReceiver" />
-        <receiver android:name=".RoutineCompleteReceiver" />
+        <receiver android:name=".notifications.RoutinePauseReceiver" />
+        <receiver android:name=".notifications.RoutineCompleteReceiver" />
     </application>
 
 </manifest>

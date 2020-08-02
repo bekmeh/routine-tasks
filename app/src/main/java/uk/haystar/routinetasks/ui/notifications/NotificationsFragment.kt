@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import uk.haystar.routinetasks.R
-import uk.haystar.routinetasks.RoutineNotification
+import uk.haystar.routinetasks.notifications.RoutineNotification
 
 class NotificationsFragment : Fragment() {
 
@@ -29,7 +29,8 @@ class NotificationsFragment : Fragment() {
         })
 
 
-        val routineNotification = RoutineNotification(context)
+        val routineNotification =
+            RoutineNotification(context)
         routineNotification.notifyUser("In progress")
 
         return root
